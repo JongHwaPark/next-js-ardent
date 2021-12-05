@@ -1,0 +1,12 @@
+.canvas-image {
+  // background: url('/static/images/source/temp_map2.png');
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.active {
+    border: 15px dashed orange;
+  }
+}

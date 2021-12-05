@@ -1,0 +1,42 @@
+@import '../../../styles/variables.scss';
+
+$side-bar-width:80px;
+
+.side-bar-wrapper{
+    position: relative;
+
+    .side-bar-content{
+        background: $gradiant-row;
+
+        position: absolute;
+        width: $side-bar-width;
+        left: -($side-bar-width);
+        height: 100%;
+
+        transition: all .1s;
+        &.active{
+            left: 0;
+        }
+
+        ul{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        li {
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            margin: .5em 0;
+            border-radius: .5em;
+            font-weight: bold;
+            color: white;
+            cursor: none;
+            background: linear-gradient(to bottom, #4EACE0, #5094F9);
+
+        }
+
+    }
+}

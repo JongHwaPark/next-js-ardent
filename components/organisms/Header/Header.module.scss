@@ -1,0 +1,17 @@
+.header-wrapper{
+    background-color: antiquewhite;
+
+    h1{
+        margin: 0;
+    }
+
+    .header-title{
+        display: flex;
+        div {
+            flex: 1;
+        }
+        span{
+            padding: 0 1em;
+        }
+    }
+}

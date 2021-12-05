@@ -1,0 +1,19 @@
+
+$side-bar-width:200px;
+
+.schedule-list-wrapper{
+    position: relative;
+    // overflow: hidden;
+    .schedule-list-content{
+        background-color: blue;
+        position: absolute;
+        width: $side-bar-width;
+        right: -($side-bar-width);
+        height: 100%;
+
+        transition: all .1s;
+        &.active{
+            right: 0;
+        }
+    }
+}
