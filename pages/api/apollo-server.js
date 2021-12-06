@@ -1,22 +1,19 @@
+const fs = require('fs');
+const path = require('path');
 const { ApolloServer, gql } = require('apollo-server');
+const GraphQLJSON = require('graphql-type-json');
 
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
 const typeDefs = gql`
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
+  scalar JSON
 
-  # This "Book" type defines the queryable fields for every book in our data source.
   type Book {
     title: String
     author: String
   }
 
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
   type Query {
     books: [Book]
+    images: [JSON]
   }
 `;
 
@@ -35,12 +32,40 @@ const books = [
 const resolvers = {
     Query: {
       books: () => books,
+      images: (_, __, { dataSources }) => {
+        return dataSources.imageAPI.loadImages()
+      }
     },
-};
+    JSON: GraphQLJSON,
+  };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+class ImageAPI {
+  loadImages(){
+    const dirPath = path.join(__dirname, '../../static/images/source');
+    const res = fs.readdirSync(dirPath);
+    // return res
+    return res.map(name => {
+      const data = fs.readFileSync(path.join(dirPath, name))
+      console.log(Object.keys(data));
+      return data;
+    });
+  
+  }
+}
 
-// The `listen` method launches a web server.
+
+const server = new ApolloServer({ 
+  typeDefs, 
+  resolvers,
+  dataSources: () => {
+    return {
+      imageAPI: new ImageAPI(),
+    };
+  },
+});
+
+
+
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });

@@ -1,8 +1,12 @@
 .layout-wrapper{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
     .main-wrapper{
         display: flex;
-
+        flex: 1;
+        
         .content-wrapper{
             width: 100%;
             display: flex;

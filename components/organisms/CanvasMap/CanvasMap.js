@@ -10,12 +10,17 @@ import MiniMap from './MiniMap';
 
 const cx = classNames.bind(styles);
 
-const CanvasMap = () => {
+const CanvasMap = ({
+  canvasWidth,
+  canvasHeight,
+  dataWidth,
+  dataHeight,
+  scale,
+  imgData,
+}) => {
 
   return (
-    <div className={cx('canvas-image', {
-      'active': activeMove
-    })}>
+    <div className={cx('canvas-image')}>
       <Stage width={canvasWidth} height={canvasHeight} options={{ backgroundColor: 0xFFFFFF, autoDensity: true }}>
         <PixiViewPort
           width={canvasWidth}
@@ -24,7 +29,6 @@ const CanvasMap = () => {
           dataHeight={dataHeight}
         >
           <Container
-            angle={rotate}
             pivot={[dataWidth / 2, dataHeight / 2]}
             position={[canvasWidth / 2, canvasHeight / 2]}
             scale={scale}
@@ -34,7 +38,7 @@ const CanvasMap = () => {
                 image={imgData}
                 option={{ width: dataWidth, height: dataHeight }}
                 interactive
-                pointerup={onClickCanvasImage}
+                // pointerup={onClickCanvasImage}
               />
             )}
           </Container>

@@ -17,7 +17,7 @@ const AsideBar: NextPage = ({
         <ul>
           {
             imageList.map((image, index) => (
-              <li>{index}</li>
+              <li key={index}>{index}</li>
             ))
           }
         </ul>
