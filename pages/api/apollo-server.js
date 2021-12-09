@@ -1,4 +1,5 @@
 const fs = require('fs');
+const probe = require('probe-image-size');
 const path = require('path');
 const { ApolloServer, gql } = require('apollo-server');
 const GraphQLJSON = require('graphql-type-json');
@@ -45,9 +46,12 @@ class ImageAPI {
     const res = fs.readdirSync(dirPath);
     // return res
     return res.map(name => {
-      const data = fs.readFileSync(path.join(dirPath, name))
-      console.log(Object.keys(data));
-      return data;
+      const data = fs.readFileSync(path.join(dirPath, name));
+      const imageData = probe.sync(data);
+      return {
+        ...imageData,
+        data:data,
+      };
     });
   
   }

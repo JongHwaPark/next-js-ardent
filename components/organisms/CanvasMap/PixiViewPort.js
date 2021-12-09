@@ -109,6 +109,7 @@ PixiViewPortComponent.defaultProps = {
   onZoomEndCanvas: () => { },
   onWheel: () => { },
   onWheelScroll: () => { },
+  onMoved: () => { },
   onMovedEnd: () => { },
 }
 
