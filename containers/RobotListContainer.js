@@ -1,19 +1,19 @@
 import React from 'react';
 import { useSelector } from 'react-redux'
 
-import { ScheduleList } from '../components/organisms';
+import { RobotList } from '../components/organisms';
 
-const ScheduleListContainer = () => {
+const RobotListContainer = () => {
   const { active } = useSelector((store) => ({
     active: store.common.ui.openRobotList
   }));
 
   return (
-    <ScheduleList
+    <RobotList
       active={active}
     />
   )
 }
 
 
-export default ScheduleListContainer;
+export default RobotListContainer;

@@ -13,7 +13,6 @@ $side-bar-width:80px;
         left: -($side-bar-width);
         height: 100%;
 
-        transition: all .1s;
         &.active{
             left: 0;
         }

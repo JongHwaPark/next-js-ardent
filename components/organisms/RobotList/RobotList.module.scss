@@ -1,0 +1,53 @@
+@import '../../../styles/variables.scss';
+
+$side-bar-width:500px;
+
+.schedule-list-wrapper{
+    position: relative;
+    // overflow: hidden;
+    .schedule-list-content{
+        background-color: #F0F1F5;
+        border-left: 1px solid $border-color;
+        position: absolute;
+        width: $side-bar-width;
+        right: -($side-bar-width);
+        height: 100%;
+
+        &.active{
+            right: 0;
+        }
+
+        & > div {
+            height: 50%;
+
+            li{
+                margin: 1em;
+            }
+        }
+    }
+}
+
+
+.point-wrapper{
+    background: #FFFFFF;
+    border: 1px solid #F2F2F2;
+    box-sizing: border-box;
+    box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 1em;
+
+    font-weight: bold;
+    font-size: 1em;
+    text-align: center;
+
+    display: flex;
+    .title{
+        flex: 1;
+    }
+    .status{
+        width: 20%;
+    }
+    .position {
+        width: 30%;
+    }
+}

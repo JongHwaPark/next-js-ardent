@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import classNames from 'classnames/bind';
 import Image from 'next/image'
-import { HeaderContainer, AsideContainer, ScheduleListContainer } from '../../../containers';
+import { HeaderContainer, AsideContainer, RobotListContainer } from '../../../containers';
 import styles from './Layout.module.scss'
 const cx = classNames.bind(styles);
 
@@ -16,7 +16,7 @@ const Layout: NextPage = ({
         <div className={cx('content-wrapper')}>
           {children}
         </div>
-        <ScheduleListContainer />
+        <RobotListContainer />
       </main>
     </div>
   )
