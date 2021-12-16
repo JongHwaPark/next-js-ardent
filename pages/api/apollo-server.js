@@ -7,32 +7,13 @@ const GraphQLJSON = require('graphql-type-json');
 const typeDefs = gql`
   scalar JSON
 
-  type Book {
-    title: String
-    author: String
-  }
-
   type Query {
-    books: [Book]
     images: [JSON]
   }
 `;
 
-const books = [
-  {
-    title: 'The Awakening',
-    author: 'Kate Chopin',
-  },
-  {
-    title: 'City of Glass',
-    author: 'Paul Auster',
-  },
-];
-
-
 const resolvers = {
     Query: {
-      books: () => books,
       images: (_, __, { dataSources }) => {
         return dataSources.imageAPI.loadImages()
       }
