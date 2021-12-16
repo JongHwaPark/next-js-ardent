@@ -1,8 +1,10 @@
 import React from 'react'
 import type { NextPage } from 'next'
+import Image from 'next/image'
 import classNames from 'classnames/bind';
 import styles from './RobotList.module.scss'
 import { PageTitle, Button } from '../../atoms';
+import ICON from '../../../static/images/ico/icon_point.png';
 const cx = classNames.bind(styles);
 
 const Point = ({
@@ -11,17 +13,34 @@ const Point = ({
 
   return (
     <div className={cx('point-wrapper')}>
-      <span className={cx('title')}>거점 1</span>
-      <span className={cx('status')}>상태</span>
-      <span className={cx('position')}>위치</span>
-    </div>
-  );
-};
-
-const ScheduleList = () => {
-  return (
-    <div>
-      스캐줄리스트
+      <div className={cx('point-info-wrap')}>
+        <div className={cx('icon')}>
+          <div><Image alt="Icon" src={ICON} width={44} height={53} /></div>
+        </div>
+        <div className={cx('point-info')}>
+          <div className={cx('title')}>
+            Title
+          </div>
+          <div className={cx('info')}>x: 128 y: 536 deg: 320</div>
+        </div>
+      </div>
+      <div className={cx('schedule-wrapper')}>
+        <ul>
+          <li>X: 8.91</li>
+          <li>Y: 9.83</li>
+          <li>DEG: -2.78</li>
+        </ul>
+        <ul>
+          <li>X: 8.91</li>
+          <li>Y: 9.83</li>
+          <li>DEG: -2.78</li>
+        </ul>
+        <ul>
+          <li>X: 8.91</li>
+          <li>Y: 9.83</li>
+          <li>DEG: -2.78</li>
+        </ul>
+      </div>
     </div>
   );
 };
@@ -39,7 +58,6 @@ const RobotList: NextPage = ({
           <ul>
             <li>
               <Point type={'default'} />
-              <ScheduleList />
             </li>
             <li>
               <Point type={'default'} />

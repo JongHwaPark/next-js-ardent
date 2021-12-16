@@ -40,14 +40,47 @@ $side-bar-width:500px;
     font-size: 1em;
     text-align: center;
 
-    display: flex;
-    .title{
-        flex: 1;
+    .point-info-wrap {
+        display: flex;
+
+        .icon {
+            background-color: #efefef;
+            margin-right: 1em;
+            width: 60px;
+            div{
+                transform: rotate(45deg);
+            }
+            img{
+                transform: scale(.8);
+            }
+        }
+
+        .point-info {
+            flex: 1;
+            text-align: left;
+            .title {
+                font-size: 1.2em;
+                padding-bottom: .5em;
+            }
+    
+            .info {
+                color: grey;
+                font-size: 0.8em;
+            }
+        }
+
     }
-    .status{
-        width: 20%;
-    }
-    .position {
-        width: 30%;
+
+    .schedule-wrapper {
+        margin-top: 1em;
+        border-top: 1px solid $border-color;
+
+        ul{
+            display: flex;
+            li{
+                font-size: .8em;
+                flex:1  
+            }
+        }
     }
 }
