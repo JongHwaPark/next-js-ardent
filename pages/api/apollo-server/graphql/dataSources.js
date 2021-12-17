@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const probe = require('probe-image-size');
+const robots = require('../database/robots.json');
+
 
 class ImageAPI {
     loadImages(){
@@ -22,6 +24,7 @@ class ImageAPI {
 const dataSources = () => {
     return {
       imageAPI: new ImageAPI(),
+      robots
     };
 };
 

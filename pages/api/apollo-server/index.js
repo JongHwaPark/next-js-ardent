@@ -1,15 +1,38 @@
-const ApolloServer = require('apollo-server').ApolloServer;
-const resolvers = require('./graphql/resolvers');
-const typeDefs = require('./graphql/typeDefs');
+const { ApolloServer } = require("apollo-server-express");
+
+// Subscription
+const { execute, subscribe } = require("graphql");
+const { createServer } = require("http");
+const express = require("express");
+const { SubscriptionServer } = require("subscriptions-transport-ws");
+
+const schema = require('./graphql/schema');
 const dataSources = require('./graphql/dataSources');
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  dataSources
-});
+(async function(){
+    const server = new ApolloServer({
+        schema,
+        dataSources,
+    });
+    
+    await server.start();
 
-// listen 함수로 웹 서버 실행
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
-});
+    const app = express();
+    const httpServer = createServer(app);
+    server.applyMiddleware({ app });
+    SubscriptionServer.create(
+        {
+            schema,
+            execute,
+            subscribe,
+        },
+        { server: httpServer, path: server.graphqlPath }
+    );
+    
+    const PORT = 4000;
+    httpServer.listen(PORT, () => {
+        console.log(`🚀  Server ready at wqe ${PORT}${server.graphqlPath}`);
+    });
+      
+})()
+
