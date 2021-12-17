@@ -3,8 +3,8 @@ const path = require('path');
 const probe = require('probe-image-size');
 const robots = require('../database/robots.json');
 
-
-class ImageAPI {
+module.exports = () => {
+  class ImageAPI {
     loadImages(){
       const dirPath = path.join(__dirname, '../../../../static/images/source');
       const res = fs.readdirSync(dirPath);
@@ -19,13 +19,14 @@ class ImageAPI {
       });
     
     }
-}
+  }
   
-const dataSources = () => {
-    return {
-      imageAPI: new ImageAPI(),
-      robots
-    };
-};
-
-module.exports = dataSources;
+  const dataSources = () => {
+      return {
+        imageAPI: new ImageAPI(),
+        robots
+      };
+  };
+  
+  return dataSources;
+}
