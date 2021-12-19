@@ -5,6 +5,7 @@ const { PubSub } = require("graphql-subscriptions");
 const { execute, subscribe } = require("graphql");
 const { createServer } = require("http");
 const express = require("express");
+const cors = require('cors');
 const { SubscriptionServer } = require("subscriptions-transport-ws");
 
 
@@ -16,12 +17,16 @@ const { SubscriptionServer } = require("subscriptions-transport-ws");
     
     const server = new ApolloServer({
         schema,
+        context:{
+          test:'asd'
+        },
         dataSources,
     });
-    
+    console.log('dataSources', dataSources());
     await server.start();
 
     const app = express();
+    app.use('*', cors());
     const httpServer = createServer(app);
     server.applyMiddleware({ app });
     SubscriptionServer.create(
@@ -35,7 +40,7 @@ const { SubscriptionServer } = require("subscriptions-transport-ws");
     
     const PORT = 4000;
     httpServer.listen(PORT, () => {
-        console.log(`🚀  Server ready at wqe ${PORT}${server.graphqlPath}`);
+        console.log(`🚀  Server ready at ${PORT}${server.graphqlPath}`);
         startTempMonitoring();
     });
      

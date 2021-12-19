@@ -7,7 +7,7 @@ import { PageTitle, Button } from '../../atoms';
 import ICON from '../../../static/images/ico/icon_point.png';
 const cx = classNames.bind(styles);
 
-const Point = ({
+const Robot = ({
   children
 }: any) => {
 
@@ -53,21 +53,21 @@ const RobotList: NextPage = ({
       <div className={cx('schedule-list-content', {
         active:active
       })}>
-        <div className={cx('online-list')}>
+        <div className={cx('robot-list')}>
           <PageTitle>온라인</PageTitle>
           <ul>
             <li>
-              <Point type={'default'} />
+              <Robot type={'default'} />
             </li>
             <li>
-              <Point type={'default'} />
+              <Robot type={'default'} />
             </li>
             <li>
-              <Point type={'default'} />
+              <Robot type={'default'} />
             </li>
           </ul>
         </div>
-        <div className={cx('offline-list')}>
+        <div className={cx('robot-list')}>
           <PageTitle>오프라인</PageTitle>
           <ul>
             <li>zz</li>

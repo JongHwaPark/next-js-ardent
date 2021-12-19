@@ -1,4 +1,5 @@
 const { gql } =  require('apollo-server')
+const dataSources = require('../dataSources');
 
 module.exports = () => {
     const typeDefs = gql`
@@ -7,8 +8,9 @@ module.exports = () => {
     
     const resolvers = {
         Query: {
-            images: (_, __, { dataSources }) => {
-              return dataSources.imageAPI.loadImages()
+            images: (_, __, context) => {
+                console.log('context', context);
+              return dataSources().imageAPI.loadImages()
             },
         },
     }

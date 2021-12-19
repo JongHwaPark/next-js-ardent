@@ -3,30 +3,26 @@ const path = require('path');
 const probe = require('probe-image-size');
 const robots = require('../database/robots.json');
 
-module.exports = () => {
-  class ImageAPI {
-    loadImages(){
-      const dirPath = path.join(__dirname, '../../../../static/images/source');
-      const res = fs.readdirSync(dirPath);
-      // return res
-      return res.map(name => {
-        const data = fs.readFileSync(path.join(dirPath, name));
-        const imageData = probe.sync(data);
-        return {
-          ...imageData,
-          data:data,
-        };
-      });
-    
-    }
-  }
-  
-  const dataSources = () => {
+class ImageAPI {
+  loadImages(){
+    const dirPath = path.join(__dirname, '../../../../static/images/source');
+    const res = fs.readdirSync(dirPath);
+    return res.map(name => {
+      const data = fs.readFileSync(path.join(dirPath, name));
+      const imageData = probe.sync(data);
       return {
-        imageAPI: new ImageAPI(),
-        robots
+        ...imageData,
+        data:data,
       };
-  };
+    });
   
-  return dataSources;
+  }
+}
+
+module.exports = () => {
+  
+  return {
+    imageAPI: new ImageAPI(),
+    robots,
+  };
 }

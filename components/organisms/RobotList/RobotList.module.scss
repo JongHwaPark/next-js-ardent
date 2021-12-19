@@ -17,11 +17,18 @@ $side-bar-width:500px;
             right: 0;
         }
 
-        & > div {
+        .robot-list{
+            display: flex;
+            flex-direction: column;
             height: 50%;
 
-            li{
-                margin: 1em;
+            ul{
+                flex:1;
+                overflow: auto;
+
+                li{
+                    margin: .7em;
+                }
             }
         }
     }

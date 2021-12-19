@@ -4,6 +4,7 @@ module.exports = (pubsub) => {
     const queries = require("./queries")(); 
     const mutations = require("./mutations")(); 
     const subscriptions = require('./subscriptions')(pubsub);
+    const dataSources = require('./dataSources')();
     
     const images = require("./modules/images")();
     const robots = require("./modules/robots")();
@@ -12,19 +13,13 @@ module.exports = (pubsub) => {
     const typeDefs = [
         images.typeDefs,
         robots.typeDefs,
-        status.typeDefs,
     
         queries.typeDefs,
-        mutations.typeDefs,
         subscriptions.typeDefs,
     ];
     const resolvers = [
         images.resolvers,
         robots.resolvers,
-        status.resolvers,
-    
-        queries.resolvers,
-        mutations.resolvers,
         subscriptions.resolvers,
     ];
     

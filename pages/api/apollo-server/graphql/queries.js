@@ -9,21 +9,7 @@ module.exports = () => {
         images: [JSON]
     }`;
 
-    const resolvers = {
-        Query: {
-            robots: (_, __, {dataSources}) => dataSources.robots,
-            robot: (_, { id }, { dataSources}) => {
-                const robots = dataSources.robots;
-                return robots.filter(robot => robot.id === id)[0];
-            },
-            images: (_, __, { dataSources }) => {
-            return dataSources.imageAPI.loadImages()
-            },
-        }
-    };
-
     return {
         typeDefs,
-        resolvers,
     }
 }
