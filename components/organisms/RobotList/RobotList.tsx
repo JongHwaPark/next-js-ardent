@@ -1,55 +1,20 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import Image from 'next/image'
 import classNames from 'classnames/bind';
 import styles from './RobotList.module.scss'
-import { PageTitle, Button } from '../../atoms';
-import ICON from '../../../static/images/ico/icon_point.png';
-const cx = classNames.bind(styles);
+import { PageTitle, RobotStatus, RobotSchedule } from '../../atoms';
+import queries from '../../../services/dataCollector/queries';
+import { useSubscription } from '@apollo/react-hooks';
 
-const Robot = ({
-  name,
-  x,
-  y,
-  degree,
-  schedule,
-}: any) => {
-  console.log(schedule);
-  const styles = { 
-    transform: `rotate(${degree}deg)` 
-  };
-  return (
-    <div className={cx('point-wrapper')}>
-      <div className={cx('point-info-wrap')}>
-        <div className={cx('icon')}>
-          <div style={styles}>
-            <Image alt="Icon" src={ICON} width={44} height={53} />
-          </div>
-        </div>
-        <div className={cx('point-info')}>
-          <div className={cx('title')}>
-            {name}
-          </div>
-          <div className={cx('info')}>x: {x} y: {y} deg: {degree}</div>
-        </div>
-      </div>
-      <div className={cx('schedule-wrapper')}>
-      { schedule && schedule.map(({x, y, degree}, index) => (
-        <ul key={index}>
-          <li>X: {x}</li>
-          <li>Y: {y}</li>
-          <li>DEG: {degree}</li>
-        </ul>
-      )) }
-      </div>
-    </div>
-  );
-};
+const cx = classNames.bind(styles);
 
 const RobotList: NextPage = ({
   active,
-  robots,
 }:any) => {
+  const { loading, error, data } = useSubscription(queries['robots']);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error!</p>;
+
   return (
     <div className={cx('schedule-list-wrapper')}>
       <div className={cx('schedule-list-content', {
@@ -58,16 +23,26 @@ const RobotList: NextPage = ({
         <div className={cx('robot-list')}>
           <PageTitle>온라인</PageTitle>
           <ul>
-            {robots.map((robot, index) => {
+            {data.robots.map((robot, index) => {
               const { schedule, pose: { x,y,degree}  } = robot.status;
               return (<li key={index}>
-                <Robot 
-                  name={robot.name} 
-                  x={x}
-                  y={y}
-                  degree={degree}
-                  schedule={schedule}
-                />
+                <div className={cx('point-wrapper')}>
+                  <RobotStatus 
+                    name={robot.name}
+                    x={x}
+                    y={y}
+                    degree={degree}
+                  />
+                  <div className={cx('schedule-wrapper')}>
+                  { schedule && schedule.map((data, idx) => (
+                    <RobotSchedule
+                      x={data.x}
+                      y={data.y}
+                      degree={data.degree}
+                    />
+                  )) }
+                  </div>
+                </div>
               </li>)
             })}
           </ul>
@@ -75,7 +50,7 @@ const RobotList: NextPage = ({
         <div className={cx('robot-list')}>
           <PageTitle>오프라인</PageTitle>
           <ul>
-            <li>zz</li>
+            <li></li>
           </ul>
 
         </div>
@@ -84,4 +59,4 @@ const RobotList: NextPage = ({
   );
 };
 
-export default RobotList;
+export default React.memo(RobotList);
