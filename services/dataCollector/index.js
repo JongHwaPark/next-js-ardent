@@ -13,9 +13,8 @@ class DataCollector {
 
   getRobots(callback){
     console.log('getRobots');
-    const apolloClient = ApolloClient.getClient();
     const query = queryList['robots'];
-    apolloClient.subscribe({ query }).subscribe(({ data }) => {
+    ApolloClient.subscribe({ query }).subscribe(({ data }) => {
       console.log(data);
       // setRobots();
       if (callback) callback(data);

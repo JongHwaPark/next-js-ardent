@@ -2,17 +2,16 @@ import '../styles/globals.css'
 import { wrapper } from "../store";
 import { Layout } from '../components/templates';
 import { ApolloProvider } from "@apollo/client";
-import apollo from '../services/dataCollector/apolloClient';
+import apolloClient from '../services/dataCollector/apolloClient';
 
 function MyApp({ Component, pageProps }) {
-  const apolloClient = apollo.getClient();
-  console.log('apolloClient', apolloClient);
+
   return (
-    <Layout>
-        {/* <ApolloProvider client={apolloClient}> */}
-          <Component {...pageProps} />
-        {/* </ApolloProvider> */}
-    </Layout>
+    <ApolloProvider client={apolloClient}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </ApolloProvider>
   );
 }
 

@@ -16,8 +16,7 @@ const Index: NextPage = (props) => {
 
   useEffect(() => {
     const getImages = async () => {
-
-      const client = apolloClient.getClient();
+      const client = apolloClient;
       const result = await client.query({ query: GET_IMAGES });
       if (result?.data) {
         const { images } = result.data;
@@ -26,13 +25,11 @@ const Index: NextPage = (props) => {
     };
     getImages();
     
-    DataCollector.init();
+    // DataCollector.init();
   }, []);
 
   return (
-    // <ApolloProvider client={apollo}>
       <CanvasMapContainer />
-    // </ApolloProvider>
   )
 }
 

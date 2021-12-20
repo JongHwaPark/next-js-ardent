@@ -8,45 +8,47 @@ import ICON from '../../../static/images/ico/icon_point.png';
 const cx = classNames.bind(styles);
 
 const Robot = ({
-  children
+  name,
+  x,
+  y,
+  degree,
+  schedule,
 }: any) => {
-
+  console.log(schedule);
+  const styles = { 
+    transform: `rotate(${degree}deg)` 
+  };
   return (
     <div className={cx('point-wrapper')}>
       <div className={cx('point-info-wrap')}>
         <div className={cx('icon')}>
-          <div><Image alt="Icon" src={ICON} width={44} height={53} /></div>
+          <div style={styles}>
+            <Image alt="Icon" src={ICON} width={44} height={53} />
+          </div>
         </div>
         <div className={cx('point-info')}>
           <div className={cx('title')}>
-            Title
+            {name}
           </div>
-          <div className={cx('info')}>x: 128 y: 536 deg: 320</div>
+          <div className={cx('info')}>x: {x} y: {y} deg: {degree}</div>
         </div>
       </div>
       <div className={cx('schedule-wrapper')}>
-        <ul>
-          <li>X: 8.91</li>
-          <li>Y: 9.83</li>
-          <li>DEG: -2.78</li>
+      { schedule && schedule.map(({x, y, degree}, index) => (
+        <ul key={index}>
+          <li>X: {x}</li>
+          <li>Y: {y}</li>
+          <li>DEG: {degree}</li>
         </ul>
-        <ul>
-          <li>X: 8.91</li>
-          <li>Y: 9.83</li>
-          <li>DEG: -2.78</li>
-        </ul>
-        <ul>
-          <li>X: 8.91</li>
-          <li>Y: 9.83</li>
-          <li>DEG: -2.78</li>
-        </ul>
+      )) }
       </div>
     </div>
   );
 };
 
 const RobotList: NextPage = ({
-  active
+  active,
+  robots,
 }:any) => {
   return (
     <div className={cx('schedule-list-wrapper')}>
@@ -56,15 +58,18 @@ const RobotList: NextPage = ({
         <div className={cx('robot-list')}>
           <PageTitle>온라인</PageTitle>
           <ul>
-            <li>
-              <Robot type={'default'} />
-            </li>
-            <li>
-              <Robot type={'default'} />
-            </li>
-            <li>
-              <Robot type={'default'} />
-            </li>
+            {robots.map((robot, index) => {
+              const { schedule, pose: { x,y,degree}  } = robot.status;
+              return (<li key={index}>
+                <Robot 
+                  name={robot.name} 
+                  x={x}
+                  y={y}
+                  degree={degree}
+                  schedule={schedule}
+                />
+              </li>)
+            })}
           </ul>
         </div>
         <div className={cx('robot-list')}>
